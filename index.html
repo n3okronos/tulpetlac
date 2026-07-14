@@ -1,0 +1,2358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tulpetlac Servicios y Construcciones S.A. de C.V. — Expertos en construccion de obra pesada, desarrollo inmobiliario y urbanizacion en la Ciudad de Mexico.">
+    <title>Tulpetlac Servicios y Construcciones | Expertos en Construccion e Inmobiliaria</title>
+    <style>
+        /* ============================================
+           ARCHITECTURAL BLUEPRINT DESIGN SYSTEM
+           Tulpetlac Servicios y Construcciones
+           ============================================ */
+        :root {
+            --blueprint: #1E3A5F;
+            --blueprint-deep: #152C4A;
+            --blueprint-light: #2C5282;
+            --orange: #ED8936;
+            --orange-light: #F6AD55;
+            --orange-glow: rgba(237, 137, 54, 0.3);
+            --grid-line: rgba(255, 255, 255, 0.08);
+            --grid-line-strong: rgba(255, 255, 255, 0.15);
+            --white: #FFFFFF;
+            --off-white: #F0F4F8;
+            --section-white-bg: #F7FAFC;
+            --gray-dark: #2D3748;
+            --gray-medium: #4A5568;
+            --gray-light: #A0AEC0;
+            --gray-border: #CBD5E0;
+            --text-on-blue: rgba(255, 255, 255, 0.92);
+            --text-muted-blue: rgba(255, 255, 255, 0.6);
+            --max-width: 1200px;
+            --header-height: 68px;
+            --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+            --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+            --font-mono: 'Courier New', 'Lucida Console', monospace;
+            --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        /* ── RESET ── */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+        body {
+            font-family: var(--font-body);
+            line-height: 1.6;
+            color: var(--gray-dark);
+            background: var(--blueprint);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+        img, svg { display: block; max-width: 100%; }
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; cursor: pointer; border: none; background: none; }
+        ul { list-style: none; }
+
+        :focus-visible {
+            outline: 3px solid var(--orange);
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            html { scroll-behavior: auto; }
+            .draw-line { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }
+        }
+
+        /* ── UTILITY ── */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 2rem);
+        }
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+        }
+
+        /* ============================================
+           BLUEPRINT GRID BACKGROUND
+           The signature visual element
+           ============================================ */
+        .bp-bg {
+            position: relative;
+            background: var(--blueprint);
+        }
+        .bp-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+                linear-gradient(var(--grid-line-strong) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line-strong) 1px, transparent 1px);
+            background-size:
+                20px 20px,
+                20px 20px,
+                100px 100px,
+                100px 100px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .bp-bg > * { position: relative; z-index: 1; }
+
+        /* White section with subtle blueprint grid watermark */
+        .white-section {
+            position: relative;
+            background: var(--section-white-bg);
+        }
+        .white-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(30,58,95,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(30,58,95,0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .white-section > * { position: relative; z-index: 1; }
+
+        /* ============================================
+           SECTION NUMBERS (Architectural style)
+           ============================================ */
+        .section-number {
+            font-family: var(--font-mono);
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: -0.02em;
+            opacity: 0.12;
+            position: absolute;
+            top: clamp(2rem, 4vw, 3rem);
+            left: clamp(1.25rem, 4vw, 2rem);
+            pointer-events: none;
+            user-select: none;
+        }
+        .bp-bg .section-number { color: var(--white); }
+        .white-section .section-number { color: var(--blueprint); }
+
+        /* ============================================
+           TECHNICAL LABEL (monospace annotation style)
+           ============================================ */
+        .tech-label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+        .bp-bg .tech-label { color: var(--orange); }
+        .white-section .tech-label { color: var(--orange); }
+
+        /* ============================================
+           DIMENSION LINES (architectural decoration)
+           ============================================ */
+        .dim-line {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            margin: 1.5rem 0;
+        }
+        .dim-line__end {
+            width: 1px;
+            height: 14px;
+        }
+        .dim-line__bar {
+            flex: 1;
+            height: 1px;
+        }
+        .dim-line__label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0 0.75rem;
+            white-space: nowrap;
+        }
+        .bp-bg .dim-line__end { background: var(--orange); }
+        .bp-bg .dim-line__bar { background: var(--orange); }
+        .bp-bg .dim-line__label { color: var(--orange); }
+        .white-section .dim-line__end { background: var(--blueprint-light); }
+        .white-section .dim-line__bar { background: var(--gray-border); }
+        .white-section .dim-line__label { color: var(--blueprint-light); }
+
+        /* ============================================
+           DRAW-ON-SCROLL SVG ANIMATION
+           ============================================ */
+        .draw-line {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 1.8s var(--ease-out);
+        }
+        .draw-line--visible {
+            stroke-dashoffset: 0;
+        }
+
+        /* ============================================
+           PROGRESS / BUILD BARS
+           ============================================ */
+        .build-bar {
+            height: 3px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-top: 0.75rem;
+        }
+        .build-bar__fill {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, var(--orange), var(--orange-light));
+            border-radius: 2px;
+            transition: width 1.4s var(--ease-out);
+        }
+        .build-bar__fill--visible {
+            width: var(--target-width, 75%);
+        }
+        .white-section .build-bar { background: rgba(30,58,95,0.08); }
+
+        /* ============================================
+           HEADER / NAVIGATION
+           ============================================ */
+        .header {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            height: var(--header-height);
+            background: rgba(21, 44, 74, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            transition: background 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+        }
+        .header--scrolled {
+            background: rgba(21, 44, 74, 0.98);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+        }
+        .header__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .header__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 1.125rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+        .header__logo:hover { opacity: 0.85; }
+        .header__logo-icon {
+            width: 36px; height: 36px;
+            border: 2px solid var(--orange);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .header__logo-icon svg { width: 18px; height: 18px; }
+
+        /* Ruler decoration in header */
+        .header__ruler {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            overflow: hidden;
+        }
+        .header__ruler-ticks {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .header__ruler-tick {
+            flex-shrink: 0;
+            width: 20px;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+        }
+        .header__ruler-tick:nth-child(5n)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -1px;
+            width: 1px;
+            height: 100%;
+            background: rgba(237,137,54,0.2);
+        }
+
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        .header__nav-link {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.65);
+            padding: 0.5rem 0.875rem;
+            border-radius: 4px;
+            transition: color 0.2s, background 0.2s;
+            cursor: pointer;
+        }
+        .header__nav-link:hover,
+        .header__nav-link:focus-visible {
+            color: var(--white);
+            background: rgba(255,255,255,0.06);
+        }
+        .header__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 0.5rem 1.125rem;
+            margin-left: 0.75rem;
+            background: var(--orange);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: transform 0.2s var(--ease-out), box-shadow 0.2s;
+            cursor: pointer;
+        }
+        .header__cta:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px var(--orange-glow);
+        }
+        .header__cta svg { width: 14px; height: 14px; }
+
+        /* Mobile Menu */
+        .header__menu-btn {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 44px; height: 44px;
+            gap: 5px;
+            cursor: pointer;
+        }
+        .header__menu-btn span {
+            width: 20px; height: 1.5px;
+            background: var(--white);
+            border-radius: 1px;
+            transition: transform 0.3s var(--ease-out), opacity 0.2s;
+            transform-origin: center;
+        }
+        .header__menu-btn--open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+        .header__menu-btn--open span:nth-child(2) { opacity: 0; }
+        .header__menu-btn--open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: var(--header-height);
+            left: 0; right: 0;
+            background: rgba(21, 44, 74, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: 0.5rem 0 1rem;
+            transform: translateY(-100%);
+            opacity: 0;
+            transition: transform 0.3s var(--ease-out), opacity 0.3s var(--ease-out);
+            z-index: 999;
+        }
+        .mobile-nav--open { transform: translateY(0); opacity: 1; }
+        .mobile-nav__link {
+            display: block;
+            padding: 0.875rem 2rem;
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.7);
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+        .mobile-nav__link:hover { background: rgba(255,255,255,0.04); color: var(--white); }
+        .mobile-nav__cta {
+            display: block;
+            margin: 0.75rem 1.5rem 0;
+            padding: 0.875rem;
+            background: var(--orange);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            text-align: center;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* ============================================
+           01. HERO — BLUEPRINT SECTION
+           ============================================ */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: var(--header-height);
+            overflow: hidden;
+            background-image: url('hero-construction.jpg');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(30, 58, 95, 0.75);
+            z-index: 0;
+        }
+        .hero > * { position: relative; z-index: 1; }
+
+        .hero__content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+            padding: clamp(3rem, 6vw, 5rem) 0;
+        }
+
+        .hero__text { animation: fadeUp 0.8s var(--ease-out) both; }
+
+        .hero__number {
+            font-family: var(--font-mono);
+            font-size: clamp(4rem, 12vw, 8rem);
+            font-weight: 700;
+            color: rgba(255,255,255,0.05);
+            line-height: 0.85;
+            margin-bottom: -0.5rem;
+            user-select: none;
+        }
+
+        .hero__badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.375rem 1rem;
+            border: 1px solid rgba(237,137,54,0.35);
+            border-radius: 2px;
+            color: var(--orange-light);
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+        .hero__badge svg { width: 12px; height: 12px; }
+
+        .hero__title {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.08;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+        .hero__title span {
+            display: block;
+            color: var(--orange);
+        }
+
+        .hero__subtitle {
+            font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+            color: var(--text-muted-blue);
+            line-height: 1.7;
+            margin-bottom: 2.5rem;
+            max-width: 500px;
+        }
+
+        .hero__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 0.8125rem 1.625rem;
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.8125rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: 4px;
+            transition: transform 0.2s var(--ease-out), box-shadow 0.2s, background 0.2s, border-color 0.2s;
+            cursor: pointer;
+            border: 2px solid transparent;
+            line-height: 1;
+        }
+        .btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+        .btn--primary {
+            background: var(--orange);
+            color: var(--white);
+            border-color: var(--orange);
+        }
+        .btn--primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px var(--orange-glow);
+            background: #E07B2B;
+        }
+        .btn--outline-white {
+            background: transparent;
+            color: var(--white);
+            border-color: rgba(255,255,255,0.25);
+        }
+        .btn--outline-white:hover {
+            border-color: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.06);
+        }
+        .btn--dark {
+            background: var(--blueprint);
+            color: var(--white);
+            border-color: var(--blueprint);
+        }
+        .btn--dark:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(30,58,95,0.35);
+        }
+
+        /* Hero SVG drawing illustration */
+        .hero__visual {
+            position: relative;
+            animation: fadeLeft 1s 0.3s var(--ease-out) both;
+        }
+        .hero__drawing {
+            width: 100%;
+            aspect-ratio: 5 / 4;
+        }
+
+        /* Floating stat cards on hero */
+        .hero__stat {
+            position: absolute;
+            background: rgba(30,58,95,0.85);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-left: 3px solid var(--orange);
+            padding: 0.875rem 1.125rem;
+            color: var(--white);
+            z-index: 3;
+            border-radius: 2px;
+        }
+        .hero__stat--top {
+            top: 8%;
+            right: -4%;
+            animation: floatA 6s ease-in-out infinite;
+        }
+        .hero__stat--bottom {
+            bottom: 12%;
+            left: -4%;
+            animation: floatB 7s ease-in-out infinite;
+        }
+        .hero__stat-value {
+            font-family: var(--font-mono);
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+        }
+        .hero__stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            color: var(--text-muted-blue);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        /* ============================================
+           02. SERVICIOS — WHITE SECTION
+           ============================================ */
+        .section-pad {
+            padding: clamp(4rem, 8vw, 7rem) 0;
+        }
+
+        .section-header {
+            margin-bottom: 3.5rem;
+        }
+        .section-header__title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -0.02em;
+            margin-top: 0.625rem;
+        }
+        .bp-bg .section-header__title { color: var(--white); }
+        .white-section .section-header__title { color: var(--blueprint); }
+
+        .section-header__desc {
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-top: 1rem;
+            max-width: 600px;
+        }
+        .bp-bg .section-header__desc { color: var(--text-muted-blue); }
+        .white-section .section-header__desc { color: var(--gray-medium); }
+
+        /* Service cards with blueprint-style left border */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+        .service-card {
+            position: relative;
+            padding: 2rem 2rem 2rem 2.25rem;
+            background: var(--white);
+            border: 1px solid rgba(30,58,95,0.08);
+            border-left: 4px solid var(--orange);
+            border-radius: 2px;
+            transition: transform 0.3s var(--ease-out), box-shadow 0.3s, border-left-color 0.3s;
+            cursor: default;
+        }
+        .service-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 32px rgba(30,58,95,0.1);
+            border-left-color: var(--blueprint);
+        }
+        .service-card__num {
+            position: absolute;
+            top: 1rem;
+            right: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: rgba(30,58,95,0.05);
+            line-height: 1;
+            user-select: none;
+        }
+        .service-card__icon {
+            width: 48px; height: 48px;
+            border: 1.5px solid var(--blueprint);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.125rem;
+            transition: background 0.3s, border-color 0.3s;
+        }
+        .service-card:hover .service-card__icon {
+            background: var(--blueprint);
+            border-color: var(--blueprint);
+        }
+        .service-card__icon svg {
+            width: 22px; height: 22px;
+            color: var(--blueprint);
+            stroke-width: 1.5;
+            transition: color 0.3s;
+        }
+        .service-card:hover .service-card__icon svg { color: var(--white); }
+        .service-card__title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--blueprint);
+            margin-bottom: 0.5rem;
+        }
+        .service-card__desc {
+            font-size: 0.875rem;
+            color: var(--gray-medium);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           03. PROYECTOS / AREAS — BLUEPRINT SECTION
+           ============================================ */
+        .areas-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+        }
+        .area-card {
+            padding: 1.75rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            background: rgba(255,255,255,0.03);
+            transition: transform 0.3s var(--ease-out), background 0.3s, border-color 0.3s;
+        }
+        .area-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.06);
+            border-color: var(--orange);
+        }
+        .area-card__icon {
+            width: 40px; height: 40px;
+            border: 1.5px solid var(--orange);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+        .area-card__icon svg {
+            width: 20px; height: 20px;
+            color: var(--orange);
+            stroke-width: 1.5;
+        }
+        .area-card__title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .area-card__desc {
+            font-size: 0.8125rem;
+            color: var(--text-muted-blue);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           04. ESTADISTICAS — BAR SECTION
+           ============================================ */
+        .stats-section {
+            background: var(--blueprint-deep);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            padding: clamp(3rem, 6vw, 4.5rem) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        /* Dimension line decoration top */
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: var(--orange);
+            opacity: 0.25;
+        }
+        .stats-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 10%; right: 10%;
+            height: 1px;
+            background: var(--orange);
+            opacity: 0.25;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        .stat-item { text-align: center; color: var(--white); }
+        .stat-item__value {
+            font-family: var(--font-mono);
+            font-size: clamp(2.25rem, 5vw, 3.25rem);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 0.25rem;
+        }
+        .stat-item__value span { color: var(--orange); }
+        .stat-item__label {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted-blue);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        /* Dimension line markers */
+        .stat-item__dim {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            margin-top: 0.75rem;
+        }
+        .stat-item__dim-end {
+            width: 1px;
+            height: 8px;
+            background: var(--orange);
+            opacity: 0.5;
+        }
+        .stat-item__dim-bar {
+            width: 40px;
+            height: 1px;
+            background: var(--orange);
+            opacity: 0.3;
+        }
+
+        /* ============================================
+           05. NOSOTROS — WHITE SECTION
+           ============================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+        }
+        .about__visual { position: relative; }
+        .about__image-frame {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            border: 2px solid var(--blueprint);
+            border-radius: 2px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--blueprint);
+        }
+        .about__image-frame svg {
+            width: 90%; height: 90%;
+        }
+
+        /* Approval stamp */
+        .stamp {
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 110px;
+            height: 110px;
+            border: 3px solid var(--orange);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--white);
+            transform: rotate(-12deg);
+            z-index: 2;
+            box-shadow: 0 4px 16px rgba(30,58,95,0.15);
+        }
+        .stamp__text {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+        }
+        .stamp__main {
+            font-family: var(--font-mono);
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--blueprint);
+            margin: 2px 0;
+        }
+        .stamp__inner-ring {
+            position: absolute;
+            inset: 6px;
+            border: 1.5px solid var(--orange);
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        .about__features { margin-top: 2rem; }
+        .about__feature {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+        }
+        .about__feature-marker {
+            width: 36px; height: 36px;
+            min-width: 36px;
+            border: 1.5px solid var(--orange);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .about__feature-marker svg {
+            width: 16px; height: 16px;
+            color: var(--orange);
+            stroke-width: 2;
+        }
+        .about__feature-title {
+            font-size: 0.9375rem;
+            font-weight: 700;
+            color: var(--blueprint);
+            margin-bottom: 0.125rem;
+        }
+        .about__feature-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-medium);
+            line-height: 1.6;
+        }
+
+        /* ============================================
+           06. CONTACTO — BLUEPRINT SECTION
+           ============================================ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: start;
+        }
+        .contact__title {
+            font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+            font-weight: 800;
+            color: var(--white);
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.02em;
+        }
+        .contact__desc {
+            color: var(--text-muted-blue);
+            font-size: 1rem;
+            margin-bottom: 2.5rem;
+        }
+        .contact-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.375rem;
+        }
+        .contact-item__icon {
+            width: 40px; height: 40px;
+            min-width: 40px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contact-item__icon svg {
+            width: 18px; height: 18px;
+            color: var(--orange);
+            stroke-width: 1.5;
+        }
+        .contact-item__label {
+            font-family: var(--font-mono);
+            font-size: 0.625rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-muted-blue);
+            margin-bottom: 0.125rem;
+        }
+        .contact-item__value {
+            font-size: 0.875rem;
+            color: var(--text-on-blue);
+            line-height: 1.5;
+        }
+
+        /* Form: technical/engineering style */
+        .contact-form {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 2px;
+            padding: 2.25rem;
+        }
+        .contact-form__header {
+            margin-bottom: 1.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .contact-form__title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 0.25rem;
+        }
+        .contact-form__subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            color: var(--text-muted-blue);
+            letter-spacing: 0.06em;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        .form-group { margin-bottom: 1.125rem; }
+        .form-group label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 0.375rem;
+        }
+        .form-group label .req {
+            color: var(--orange);
+            margin-left: 2px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.6875rem 0.875rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 2px;
+            color: var(--white);
+            font-size: 0.875rem;
+            font-family: var(--font-body);
+            transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+            min-height: 44px;
+        }
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: rgba(255,255,255,0.25);
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--orange);
+            background: rgba(255,255,255,0.08);
+            box-shadow: 0 0 0 3px rgba(237,137,54,0.15);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        .form-group select {
+            -webkit-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.4)' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.875rem center;
+            padding-right: 2.25rem;
+            cursor: pointer;
+        }
+        .form-group select option {
+            background: var(--blueprint);
+            color: var(--white);
+        }
+        .form-submit {
+            width: 100%;
+            padding: 0.8125rem;
+            background: var(--orange);
+            color: var(--white);
+            font-family: var(--font-mono);
+            font-weight: 700;
+            font-size: 0.8125rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.2s var(--ease-out), box-shadow 0.2s, background 0.2s;
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 24px var(--orange-glow);
+            background: #E07B2B;
+        }
+        .form-submit svg { width: 16px; height: 16px; }
+
+        /* ============================================
+           FOOTER — WITH RULER SCALE
+           ============================================ */
+        .footer {
+            background: #1A2D45;
+            color: var(--gray-light);
+            position: relative;
+        }
+        /* Ruler scale at top of footer */
+        .footer__ruler {
+            height: 20px;
+            background: var(--blueprint-deep);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .footer__ruler-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 clamp(1.25rem, 4vw, 2rem);
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+        }
+        .footer__ruler-marks {
+            display: flex;
+            height: 100%;
+            width: 100%;
+        }
+        .footer__ruler-mark {
+            flex-shrink: 0;
+            width: 10px;
+            border-right: 1px solid rgba(255,255,255,0.06);
+            position: relative;
+        }
+        .footer__ruler-mark:nth-child(5n) {
+            border-right-color: rgba(255,255,255,0.1);
+        }
+        .footer__ruler-mark:nth-child(10n) {
+            border-right-color: rgba(237,137,54,0.3);
+        }
+        .footer__ruler-mark:nth-child(10n)::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: -1px;
+            width: 1px;
+            height: 100%;
+            background: rgba(237,137,54,0.2);
+        }
+
+        .footer__main {
+            padding: 3.5rem 0 2.5rem;
+        }
+        .footer__grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.25fr;
+            gap: 2.5rem;
+        }
+        .footer__brand-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--white);
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+        .footer__brand-icon {
+            width: 28px; height: 28px;
+            border: 2px solid var(--orange);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .footer__brand-icon svg { width: 14px; height: 14px; }
+        .footer__brand-desc {
+            font-size: 0.8125rem;
+            color: var(--gray-light);
+            line-height: 1.7;
+            max-width: 300px;
+        }
+        .footer__heading {
+            font-family: var(--font-mono);
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--orange);
+            margin-bottom: 1.25rem;
+        }
+        .footer__links a {
+            display: block;
+            font-size: 0.8125rem;
+            color: var(--gray-light);
+            padding: 0.3rem 0;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+        .footer__links a:hover { color: var(--orange-light); }
+        .footer__legal {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            line-height: 1.7;
+        }
+        .footer__legal strong { color: rgba(255,255,255,0.7); }
+        .footer__legal p + p { margin-top: 0.375rem; }
+
+        .footer__bottom {
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 1.25rem 0;
+        }
+        .footer__bottom-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--gray-medium);
+        }
+        .footer__bottom-inner a {
+            color: var(--gray-light);
+            transition: color 0.2s;
+        }
+        .footer__bottom-inner a:hover { color: var(--orange-light); }
+
+        /* ============================================
+           SCROLL TO TOP
+           ============================================ */
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem; right: 2rem;
+            width: 44px; height: 44px;
+            background: var(--blueprint);
+            border: 1.5px solid var(--orange);
+            color: var(--orange);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), background 0.2s;
+            cursor: pointer;
+        }
+        .scroll-top--visible { opacity: 1; transform: translateY(0); }
+        .scroll-top:hover { background: var(--orange); color: var(--white); }
+        .scroll-top svg { width: 18px; height: 18px; }
+
+        /* ============================================
+           ANIMATIONS
+           ============================================ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(28px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeLeft {
+            from { opacity: 0; transform: translateX(28px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes floatA {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes floatB {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-7px); }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+        }
+        .reveal--visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Stagger children */
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+        }
+        .reveal-stagger--visible > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger--visible > *:nth-child(2) { transition-delay: 80ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger--visible > *:nth-child(3) { transition-delay: 160ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger--visible > *:nth-child(4) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger--visible > *:nth-child(5) { transition-delay: 320ms; opacity: 1; transform: translateY(0); }
+        .reveal-stagger--visible > *:nth-child(6) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+
+        /* Counter animation class */
+        .counter-animate {
+            display: inline-block;
+        }
+
+        /* ============================================
+           RESPONSIVE: TABLET
+           ============================================ */
+        @media (max-width: 768px) {
+            .header__nav { display: none; }
+            .header__menu-btn { display: flex; }
+            .mobile-nav { display: block; }
+
+            .hero__content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .hero__subtitle { margin-left: auto; margin-right: auto; }
+            .hero__actions { justify-content: center; }
+            .hero__visual { display: none; }
+            .hero__number { font-size: 5rem; }
+
+            .services-grid { grid-template-columns: 1fr; }
+            .areas-grid { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .about-grid { grid-template-columns: 1fr; }
+            .about__visual { order: -1; }
+            .stamp { bottom: -12px; right: -12px; width: 90px; height: 90px; }
+            .stamp__main { font-size: 0.6875rem; }
+            .stamp__text { font-size: 0.5rem; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .footer__grid { grid-template-columns: 1fr 1fr; }
+            .footer__bottom-inner {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .section-number { font-size: 3rem; }
+        }
+
+        /* ============================================
+           RESPONSIVE: MOBILE
+           ============================================ */
+        @media (max-width: 480px) {
+            .hero__actions {
+                flex-direction: column;
+                width: 100%;
+            }
+            .hero__actions .btn { width: 100%; }
+            .hero__number { font-size: 3.5rem; }
+            .areas-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+            .footer__grid { grid-template-columns: 1fr; }
+            .contact-form { padding: 1.5rem; }
+            .section-number { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ======== HEADER with ruler decoration ======== -->
+    <header class="header" role="banner">
+        <div class="container header__inner">
+            <a href="#inicio" class="header__logo" aria-label="Tulpetlac - Ir al inicio">
+                <div class="header__logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 21h18"/>
+                        <path d="M5 21V7l8-4v18"/>
+                        <path d="M19 21V11l-6-4"/>
+                        <path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/>
+                    </svg>
+                </div>
+                Tulpetlac
+            </a>
+
+            <nav class="header__nav" aria-label="Navegacion principal">
+                <a href="#inicio" class="header__nav-link">Inicio</a>
+                <a href="#servicios" class="header__nav-link">Servicios</a>
+                <a href="#areas" class="header__nav-link">Especialidades</a>
+                <a href="#nosotros" class="header__nav-link">Nosotros</a>
+                <a href="#contacto" class="header__nav-link">Contacto</a>
+                <a href="#contacto" class="header__cta">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    Cotizar
+                </a>
+            </nav>
+
+            <button class="header__menu-btn" aria-label="Abrir menu de navegacion" aria-expanded="false" aria-controls="mobile-nav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <!-- Ruler ticks at bottom of header -->
+        <div class="header__ruler" aria-hidden="true">
+            <div class="header__ruler-ticks" id="header-ruler"></div>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation -->
+    <nav id="mobile-nav" class="mobile-nav" role="navigation" aria-label="Navegacion movil">
+        <a href="#inicio" class="mobile-nav__link">Inicio</a>
+        <a href="#servicios" class="mobile-nav__link">Servicios</a>
+        <a href="#areas" class="mobile-nav__link">Especialidades</a>
+        <a href="#nosotros" class="mobile-nav__link">Nosotros</a>
+        <a href="#contacto" class="mobile-nav__link">Contacto</a>
+        <a href="#contacto" class="mobile-nav__cta">Solicitar Cotizacion</a>
+    </nav>
+
+    <!-- ======== 01. HERO — BLUEPRINT ======== -->
+    <section id="inicio" class="hero bp-bg">
+        <div class="container hero__content">
+            <div class="hero__text">
+                <div class="hero__number" aria-hidden="true">01.</div>
+                <div class="hero__badge">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                    </svg>
+                    Empresa Legalmente Constituida
+                </div>
+                <h1 class="hero__title">
+                    Construimos el
+                    <span>Futuro de Mexico</span>
+                </h1>
+                <p class="hero__subtitle">
+                    Con mas de 8 anos de experiencia, somos lideres en construccion de obra pesada, desarrollo inmobiliario y administracion de proyectos de urbanizacion en la Ciudad de Mexico.
+                </p>
+
+                <!-- Dimension line decoration -->
+                <div class="dim-line" aria-hidden="true">
+                    <div class="dim-line__end"></div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__label">Desde 2015</div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__end"></div>
+                </div>
+
+                <div class="hero__actions">
+                    <a href="#contacto" class="btn btn--primary">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                            <polyline points="22,6 12,13 2,6"/>
+                        </svg>
+                        Solicitar Cotizacion
+                    </a>
+                    <a href="#servicios" class="btn btn--outline-white">
+                        Conocer Servicios
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="5" y1="12" x2="19" y2="12"/>
+                            <polyline points="12 5 19 12 12 19"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div class="hero__visual">
+                <div class="hero__drawing">
+                    <!-- Architectural Blueprint SVG - Building that draws itself -->
+                    <svg viewBox="0 0 500 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Plano arquitectonico de edificio moderno en construccion">
+                        <!-- Background grid emphasis -->
+                        <line x1="50" y1="0" x2="50" y2="400" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="150" y1="0" x2="150" y2="400" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="250" y1="0" x2="250" y2="400" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="350" y1="0" x2="350" y2="400" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="450" y1="0" x2="450" y2="400" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="0" y1="80" x2="500" y2="80" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="0" y1="160" x2="500" y2="160" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="0" y1="240" x2="500" y2="240" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+                        <line x1="0" y1="320" x2="500" y2="320" stroke="white" stroke-opacity="0.05" stroke-width="0.5"/>
+
+                        <!-- GROUND LINE -->
+                        <line class="draw-line" x1="30" y1="350" x2="470" y2="350" stroke="white" stroke-width="1.5" stroke-opacity="0.6"/>
+
+                        <!-- MAIN TOWER (tall center building) -->
+                        <rect class="draw-line" x="160" y="60" width="100" height="290" stroke="white" stroke-width="1.5" fill="none" stroke-opacity="0.7" rx="2"/>
+                        <!-- Tower windows (3 cols x 9 rows) -->
+                        <rect class="draw-line" x="172" y="78" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="78" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="78" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="102" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="102" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="102" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="126" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="126" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="126" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="150" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="150" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="150" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="174" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="174" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="174" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="198" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="198" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="198" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="172" y="222" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="202" y="222" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <rect class="draw-line" x="232" y="222" width="16" height="12" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.35"/>
+                        <!-- Tower top accent -->
+                        <line class="draw-line" x1="160" y1="60" x2="260" y2="60" stroke="#ED8936" stroke-width="2.5"/>
+
+                        <!-- SECONDARY BUILDING (right) -->
+                        <rect class="draw-line" x="280" y="140" width="80" height="210" stroke="white" stroke-width="1.5" fill="none" stroke-opacity="0.5" rx="2"/>
+                        <!-- Windows -->
+                        <rect class="draw-line" x="292" y="158" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="314" y="158" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="336" y="158" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="292" y="180" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="314" y="180" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="336" y="180" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="292" y="202" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="314" y="202" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="336" y="202" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="292" y="224" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="314" y="224" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+                        <rect class="draw-line" x="336" y="224" width="14" height="10" stroke="white" stroke-width="0.8" fill="none" stroke-opacity="0.25"/>
+
+                        <!-- BACKGROUND BUILDING (left) -->
+                        <rect class="draw-line" x="60" y="190" width="70" height="160" stroke="white" stroke-width="1" fill="none" stroke-opacity="0.3" rx="2"/>
+                        <rect class="draw-line" x="72" y="206" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="90" y="206" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="108" y="206" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="72" y="224" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="90" y="224" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="108" y="224" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="72" y="242" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="90" y="242" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+                        <rect class="draw-line" x="108" y="242" width="10" height="8" stroke="white" stroke-width="0.6" fill="none" stroke-opacity="0.2"/>
+
+                        <!-- CRANE -->
+                        <line class="draw-line" x1="420" y1="20" x2="420" y2="350" stroke="white" stroke-width="1.5" stroke-opacity="0.5"/>
+                        <line class="draw-line" x1="350" y1="20" x2="460" y2="20" stroke="white" stroke-width="1.5" stroke-opacity="0.5"/>
+                        <line class="draw-line" x1="420" y1="20" x2="400" y2="50" stroke="white" stroke-width="1" stroke-opacity="0.3"/>
+                        <line class="draw-line" x1="420" y1="20" x2="440" y2="50" stroke="white" stroke-width="1" stroke-opacity="0.3"/>
+                        <!-- Crane cable and hook -->
+                        <line class="draw-line" x1="380" y1="20" x2="380" y2="80" stroke="#ED8936" stroke-width="1"/>
+                        <rect class="draw-line" x="374" y="80" width="12" height="6" stroke="#ED8936" stroke-width="1" fill="none" rx="1"/>
+
+                        <!-- DIMENSION LINES (architectural annotations) -->
+                        <!-- Main tower width -->
+                        <line class="draw-line" x1="160" y1="375" x2="260" y2="375" stroke="#ED8936" stroke-width="0.8"/>
+                        <line class="draw-line" x1="160" y1="370" x2="160" y2="380" stroke="#ED8936" stroke-width="0.8"/>
+                        <line class="draw-line" x1="260" y1="370" x2="260" y2="380" stroke="#ED8936" stroke-width="0.8"/>
+                        <text x="210" y="390" font-family="'Courier New', monospace" font-size="8" fill="#ED8936" text-anchor="middle" opacity="0.8">18.5 m</text>
+
+                        <!-- Tower height dimension -->
+                        <line class="draw-line" x1="140" y1="60" x2="140" y2="350" stroke="#ED8936" stroke-width="0.8" stroke-dasharray="4 2"/>
+                        <line class="draw-line" x1="135" y1="60" x2="145" y2="60" stroke="#ED8936" stroke-width="0.8"/>
+                        <line class="draw-line" x1="135" y1="350" x2="145" y2="350" stroke="#ED8936" stroke-width="0.8"/>
+                        <text x="128" y="210" font-family="'Courier New', monospace" font-size="7" fill="#ED8936" text-anchor="middle" transform="rotate(-90, 128, 210)" opacity="0.7">45.2 m</text>
+
+                        <!-- Corner annotation -->
+                        <circle class="draw-line" cx="42" cy="38" r="14" stroke="#ED8936" stroke-width="0.8" fill="none" opacity="0.5"/>
+                        <text x="42" y="42" font-family="'Courier New', monospace" font-size="8" fill="#ED8936" text-anchor="middle" opacity="0.6">A1</text>
+                    </svg>
+                </div>
+
+                <!-- Floating stat badges -->
+                <div class="hero__stat hero__stat--top">
+                    <div class="hero__stat-value">8+</div>
+                    <div class="hero__stat-label">Anos experiencia</div>
+                </div>
+                <div class="hero__stat hero__stat--bottom">
+                    <div class="hero__stat-value">CDMX</div>
+                    <div class="hero__stat-label">Presencia estrategica</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== 02. SERVICIOS — WHITE SECTION ======== -->
+    <section id="servicios" class="white-section section-pad">
+        <div class="section-number" aria-hidden="true">02.</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="tech-label">// Nuestros Servicios</div>
+                <h2 class="section-header__title">Soluciones Integrales en Construccion</h2>
+                <p class="section-header__desc">Ofrecemos un portafolio completo de servicios de construccion e inmobiliaria para proyectos de cualquier escala, respaldados por experiencia y profesionalismo.</p>
+                <div class="dim-line" aria-hidden="true">
+                    <div class="dim-line__end"></div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__label">Portafolio</div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__end"></div>
+                </div>
+            </div>
+
+            <div class="services-photo reveal" style="margin-bottom: 2.5rem; border-radius: 4px; overflow: hidden; border: 2px solid rgba(30,58,95,0.1); box-shadow: 0 4px 24px rgba(30,58,95,0.08);">
+                <img src="engineers-blueprints.jpg" alt="Ingenieros civiles revisando planos arquitectonicos en sitio de construccion" style="width: 100%; height: 340px; object-fit: cover; display: block;">
+            </div>
+
+            <div class="services-grid reveal-stagger">
+                <!-- Service 1 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">01</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 20h20"/><path d="M5 20V8.5L12 4l7 4.5V20"/>
+                            <path d="M9 20v-4h6v4"/><path d="M9 12h6"/><path d="M12 12v4"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Ingenieria Civil</h3>
+                    <p class="service-card__desc">Construccion de obra pesada, infraestructura urbana, puentes, carreteras y obras de gran envergadura con los mas altos estandares de calidad y seguridad.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 92%"></div></div>
+                </div>
+
+                <!-- Service 2 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">02</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>
+                            <path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Desarrollo Inmobiliario</h3>
+                    <p class="service-card__desc">Gestion completa de proyectos inmobiliarios, desde la concepcion hasta la entrega, maximizando el valor de su inversion con vision estrategica.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 88%"></div></div>
+                </div>
+
+                <!-- Service 3 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">03</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+                            <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+                            <line x1="12" y1="22.08" x2="12" y2="12"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Division de Terrenos</h3>
+                    <p class="service-card__desc">Administracion y supervision especializada en division de terrenos, garantizando el cumplimiento normativo y la optimizacion integral del espacio.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 80%"></div></div>
+                </div>
+
+                <!-- Service 4 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">04</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Obras de Urbanizacion</h3>
+                    <p class="service-card__desc">Desarrollo integral de proyectos de urbanizacion, incluyendo infraestructura vial, hidraulica, electrica y areas verdes para comunidades completas.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 85%"></div></div>
+                </div>
+
+                <!-- Service 5 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">05</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Supervision de Obra</h3>
+                    <p class="service-card__desc">Control riguroso de calidad, tiempos y costos en obra, asegurando que cada proyecto cumpla con las especificaciones tecnicas y normativas requeridas.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 90%"></div></div>
+                </div>
+
+                <!-- Service 6 -->
+                <div class="service-card">
+                    <div class="service-card__num" aria-hidden="true">06</div>
+                    <div class="service-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="service-card__title">Consultoria Tecnica</h3>
+                    <p class="service-card__desc">Asesoria experta en planeacion, presupuestos, permisos de construccion y cumplimiento de regulaciones para proyectos del sector publico y privado.</p>
+                    <div class="build-bar"><div class="build-bar__fill" style="--target-width: 76%"></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== 03. ESPECIALIDADES — BLUEPRINT SECTION ======== -->
+    <section id="areas" class="bp-bg section-pad">
+        <div class="section-number" aria-hidden="true">03.</div>
+        <div class="container">
+            <div class="section-header reveal">
+                <div class="tech-label">// Areas de Especializacion</div>
+                <h2 class="section-header__title">Equipo Multidisciplinario</h2>
+                <p class="section-header__desc">Contamos con las areas funcionales necesarias para garantizar el exito de cada proyecto, desde la concepcion hasta la entrega final.</p>
+                <div class="dim-line" aria-hidden="true">
+                    <div class="dim-line__end"></div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__label">6 Areas</div>
+                    <div class="dim-line__bar"></div>
+                    <div class="dim-line__end"></div>
+                </div>
+            </div>
+
+            <div class="areas-grid reveal-stagger">
+                <!-- Area 1 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                            <circle cx="9" cy="7" r="4"/>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Direccion General</h3>
+                    <p class="area-card__desc">Liderazgo estrategico y vision integral de todos los proyectos y operaciones de la empresa.</p>
+                </div>
+
+                <!-- Area 2 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+                            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Ingenieria y Proyectos</h3>
+                    <p class="area-card__desc">Diseno, planeacion y ejecucion tecnica de obras civiles y proyectos constructivos de alta complejidad.</p>
+                </div>
+
+                <!-- Area 3 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v2m0 18v2m8.66-15.66l-1.42 1.42M4.76 19.24l-1.42 1.42M23 12h-2M3 12H1m18.66 7.66l-1.42-1.42M4.76 4.76L3.34 3.34"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Operaciones</h3>
+                    <p class="area-card__desc">Gestion eficiente de recursos, logistica y supervision de obra en campo para garantizar cumplimiento de plazos.</p>
+                </div>
+
+                <!-- Area 4 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="12" y1="1" x2="12" y2="23"/>
+                            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Comercializacion</h3>
+                    <p class="area-card__desc">Estrategias de venta, promocion inmobiliaria y atencion personalizada a clientes para maximizar resultados.</p>
+                </div>
+
+                <!-- Area 5 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="8" y1="6" x2="21" y2="6"/>
+                            <line x1="8" y1="12" x2="21" y2="12"/>
+                            <line x1="8" y1="18" x2="21" y2="18"/>
+                            <line x1="3" y1="6" x2="3.01" y2="6"/>
+                            <line x1="3" y1="12" x2="3.01" y2="12"/>
+                            <line x1="3" y1="18" x2="3.01" y2="18"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Administracion y Finanzas</h3>
+                    <p class="area-card__desc">Control financiero, contabilidad y gestion administrativa integral para la viabilidad de cada proyecto.</p>
+                </div>
+
+                <!-- Area 6 -->
+                <div class="area-card">
+                    <div class="area-card__icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                            <polyline points="14 2 14 8 20 8"/>
+                            <line x1="16" y1="13" x2="8" y2="13"/>
+                            <line x1="16" y1="17" x2="8" y2="17"/>
+                            <polyline points="10 9 9 9 8 9"/>
+                        </svg>
+                    </div>
+                    <h3 class="area-card__title">Legal y Normativo</h3>
+                    <p class="area-card__desc">Cumplimiento regulatorio, permisos, licencias y asesoria juridica especializada en el sector construccion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== 04. ESTADISTICAS ======== -->
+    <div class="stats-section" aria-label="Cifras destacadas de la empresa">
+        <div class="container">
+            <div class="stats-grid reveal-stagger">
+                <div class="stat-item">
+                    <div class="stat-item__value"><span class="counter-animate" data-target="8">0</span><span>+</span></div>
+                    <div class="stat-item__label">Anos de Experiencia</div>
+                    <div class="stat-item__dim" aria-hidden="true">
+                        <div class="stat-item__dim-end"></div>
+                        <div class="stat-item__dim-bar"></div>
+                        <div class="stat-item__dim-end"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__value"><span class="counter-animate" data-target="100">0</span><span>+</span></div>
+                    <div class="stat-item__label">Proyectos Completados</div>
+                    <div class="stat-item__dim" aria-hidden="true">
+                        <div class="stat-item__dim-end"></div>
+                        <div class="stat-item__dim-bar"></div>
+                        <div class="stat-item__dim-end"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__value"><span class="counter-animate" data-target="50">0</span><span>+</span></div>
+                    <div class="stat-item__label">Clientes Satisfechos</div>
+                    <div class="stat-item__dim" aria-hidden="true">
+                        <div class="stat-item__dim-end"></div>
+                        <div class="stat-item__dim-bar"></div>
+                        <div class="stat-item__dim-end"></div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-item__value">CDMX</div>
+                    <div class="stat-item__label">Cobertura en la Capital</div>
+                    <div class="stat-item__dim" aria-hidden="true">
+                        <div class="stat-item__dim-end"></div>
+                        <div class="stat-item__dim-bar"></div>
+                        <div class="stat-item__dim-end"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======== 05. NOSOTROS — WHITE SECTION ======== -->
+    <section id="nosotros" class="white-section section-pad">
+        <div class="section-number" aria-hidden="true">05.</div>
+        <div class="container">
+            <div class="about-grid">
+                <div class="about__visual reveal">
+                    <div class="about__image-frame" style="background: transparent; border-color: var(--orange);">
+                        <img src="luxury-development.jpg" alt="Desarrollo inmobiliario moderno de uso mixto residencial y corporativo en ciudad mexicana" style="width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0;">
+                    </div>
+                    <!-- Approval stamp -->
+                    <div class="stamp" aria-hidden="true">
+                        <div class="stamp__inner-ring"></div>
+                        <div class="stamp__text">Tulpetlac S.C.</div>
+                        <div class="stamp__main">Aprobado</div>
+                        <div class="stamp__text">ISO 9001</div>
+                    </div>
+                </div>
+
+                <div class="about__content reveal">
+                    <div class="tech-label">// Por Que Elegirnos</div>
+                    <h2 class="section-header__title" style="margin-top: 0.5rem;">Experiencia y Compromiso con la Excelencia</h2>
+                    <p class="section-header__desc" style="margin-top: 0.75rem;">TULPETLAC SERVICIOS Y CONSTRUCCIONES S.A. DE C.V. es una empresa legalmente constituida, comprometida con la calidad, seguridad y cumplimiento normativo en cada proyecto que emprendemos.</p>
+
+                    <div class="dim-line" aria-hidden="true">
+                        <div class="dim-line__end"></div>
+                        <div class="dim-line__bar"></div>
+                        <div class="dim-line__label">Ventajas</div>
+                        <div class="dim-line__bar"></div>
+                        <div class="dim-line__end"></div>
+                    </div>
+
+                    <div class="about__features">
+                        <div class="about__feature">
+                            <div class="about__feature-marker">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                                    <polyline points="22 4 12 14.01 9 11.01"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="about__feature-title">Cumplimiento Normativo</div>
+                                <p class="about__feature-desc">Todos nuestros proyectos cumplen estrictamente con la normatividad vigente y los mas altos estandares del sector.</p>
+                            </div>
+                        </div>
+
+                        <div class="about__feature">
+                            <div class="about__feature-marker">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="about__feature-title">Seguridad Integral</div>
+                                <p class="about__feature-desc">Priorizamos la seguridad en obra y la proteccion de nuestro equipo de trabajo, cumpliendo protocolos rigurosos.</p>
+                            </div>
+                        </div>
+
+                        <div class="about__feature">
+                            <div class="about__feature-marker">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+                                    <polyline points="17 6 23 6 23 12"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <div class="about__feature-title">Resultados Comprobables</div>
+                                <p class="about__feature-desc">Entregamos proyectos en tiempo y forma, con transparencia total en costos y avance de obra.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== 06. CONTACTO — BLUEPRINT SECTION ======== -->
+    <section id="contacto" class="bp-bg section-pad">
+        <div class="section-number" aria-hidden="true">06.</div>
+        <div class="container">
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="tech-label">// Contacto</div>
+                    <h2 class="contact__title">Construyamos Juntos su Proximo Proyecto</h2>
+                    <p class="contact__desc">Estamos listos para hacer realidad su vision. Contactenos para una cotizacion personalizada sin compromiso.</p>
+
+                    <div class="dim-line" aria-hidden="true">
+                        <div class="dim-line__end"></div>
+                        <div class="dim-line__bar"></div>
+                        <div class="dim-line__label">Datos</div>
+                        <div class="dim-line__bar"></div>
+                        <div class="dim-line__end"></div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-item__label">Direccion</div>
+                            <div class="contact-item__value">Jose Maria Ibarraran 47, Desp. 403<br>Of. 403-A, Col. San Jose Insurgentes<br>Benito Juarez, CDMX, CP 03900</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-item__label">Telefono</div>
+                            <div class="contact-item__value">+52 (55) 1234-5678</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-item__label">Correo Electronico</div>
+                            <div class="contact-item__value">soporte@tulpetlacsc.com.mx</div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-item__icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <div class="contact-item__label">Horario</div>
+                            <div class="contact-item__value">Lunes a Viernes: 9:00 - 18:00 hrs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form reveal">
+                    <div class="contact-form__header">
+                        <h3 class="contact-form__title">Solicite una Cotizacion</h3>
+                        <p class="contact-form__subtitle">// Respuesta en menos de 24 horas</p>
+                    </div>
+                    <form id="contact-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Nombre Completo <span class="req" aria-hidden="true">*</span></label>
+                                <input type="text" id="name" name="name" placeholder="Ej. Juan Perez" required autocomplete="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Correo Electronico <span class="req" aria-hidden="true">*</span></label>
+                                <input type="email" id="email" name="email" placeholder="Ej. juan@empresa.com" required autocomplete="email">
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Telefono <span class="req" aria-hidden="true">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="Ej. 55 1234 5678" required autocomplete="tel">
+                            </div>
+                            <div class="form-group">
+                                <label for="service">Tipo de Servicio</label>
+                                <select id="service" name="service">
+                                    <option value="">Seleccione un servicio</option>
+                                    <option value="civil">Ingenieria Civil</option>
+                                    <option value="inmobiliario">Desarrollo Inmobiliario</option>
+                                    <option value="terrenos">Division de Terrenos</option>
+                                    <option value="urbanizacion">Obras de Urbanizacion</option>
+                                    <option value="supervision">Supervision de Obra</option>
+                                    <option value="consultoria">Consultoria Tecnica</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Descripcion del Proyecto <span class="req" aria-hidden="true">*</span></label>
+                            <textarea id="message" name="message" rows="4" placeholder="Describa brevemente su proyecto, ubicacion y requerimientos..." required></textarea>
+                        </div>
+                        <!-- Honeypot anti-spam field - hidden from real users -->
+                        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+                        <button type="submit" class="form-submit">
+                            Enviar Solicitud
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <line x1="22" y1="2" x2="11" y2="13"/>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======== FOOTER with ruler scale ======== -->
+    <footer class="footer" role="contentinfo">
+        <!-- Ruler scale decoration -->
+        <div class="footer__ruler" aria-hidden="true">
+            <div class="footer__ruler-inner">
+                <div class="footer__ruler-marks" id="footer-ruler"></div>
+            </div>
+        </div>
+
+        <div class="footer__main">
+            <div class="container">
+                <div class="footer__grid">
+                    <div>
+                        <div class="footer__brand-name">
+                            <div class="footer__brand-icon">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/>
+                                </svg>
+                            </div>
+                            Tulpetlac S.C.
+                        </div>
+                        <p class="footer__brand-desc">Lideres en construccion e inmobiliaria con presencia en toda la Ciudad de Mexico. Mas de 8 anos construyendo con excelencia y compromiso.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__heading">// Navegacion</h3>
+                        <div class="footer__links">
+                            <a href="#inicio">Inicio</a>
+                            <a href="#servicios">Servicios</a>
+                            <a href="#areas">Especialidades</a>
+                            <a href="#nosotros">Nosotros</a>
+                            <a href="#contacto">Contacto</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__heading">// Servicios</h3>
+                        <div class="footer__links">
+                            <a href="#servicios">Ingenieria Civil</a>
+                            <a href="#servicios">Desarrollo Inmobiliario</a>
+                            <a href="#servicios">Division de Terrenos</a>
+                            <a href="#servicios">Urbanizacion</a>
+                            <a href="#servicios">Supervision de Obra</a>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__heading">// Informacion Legal</h3>
+                        <div class="footer__legal">
+                            <p><strong>Razon Social:</strong><br>Tulpetlac Servicios y Construcciones S.A. de C.V.</p>
+                            <p><strong>RFC:</strong> TSC151214N97</p>
+                            <p><strong>Regimen:</strong> General de Ley Personas Morales</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer__bottom">
+            <div class="container footer__bottom-inner">
+                <span>&copy; 2024 Tulpetlac Servicios y Construcciones S.A. de C.V. Todos los derechos reservados.</span>
+                <a href="#">Aviso de Privacidad</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ======== SCROLL TO TOP ======== -->
+    <button class="scroll-top" id="scroll-top" aria-label="Volver al inicio de la pagina">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5 12 12 5 19 12"/>
+        </svg>
+    </button>
+
+    <!-- ======== JAVASCRIPT ======== -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ── Generate ruler ticks ──
+            function generateRulerTicks(container, count) {
+                if (!container) return;
+                var frag = document.createDocumentFragment();
+                for (var i = 0; i < count; i++) {
+                    var tick = document.createElement('div');
+                    tick.className = container.id === 'header-ruler'
+                        ? 'header__ruler-tick'
+                        : 'footer__ruler-mark';
+                    frag.appendChild(tick);
+                }
+                container.appendChild(frag);
+            }
+            generateRulerTicks(document.getElementById('header-ruler'), 80);
+            generateRulerTicks(document.getElementById('footer-ruler'), 120);
+
+            // ── Header scroll effect ──
+            var header = document.querySelector('.header');
+            var scrollThreshold = 50;
+
+            function updateHeader() {
+                if (window.scrollY > scrollThreshold) {
+                    header.classList.add('header--scrolled');
+                } else {
+                    header.classList.remove('header--scrolled');
+                }
+            }
+
+            // ── Mobile menu ──
+            var menuBtn = document.querySelector('.header__menu-btn');
+            var mobileNav = document.querySelector('.mobile-nav');
+            var isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                menuBtn.classList.toggle('header__menu-btn--open', isMenuOpen);
+                mobileNav.classList.toggle('mobile-nav--open', isMenuOpen);
+                menuBtn.setAttribute('aria-expanded', String(isMenuOpen));
+                document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+            }
+
+            function closeMenu() {
+                if (isMenuOpen) {
+                    isMenuOpen = false;
+                    menuBtn.classList.remove('header__menu-btn--open');
+                    mobileNav.classList.remove('mobile-nav--open');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    document.body.style.overflow = '';
+                }
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            var mobileLinks = mobileNav.querySelectorAll('a');
+            for (var i = 0; i < mobileLinks.length; i++) {
+                mobileLinks[i].addEventListener('click', closeMenu);
+            }
+
+            // ── Smooth scroll ──
+            var allAnchors = document.querySelectorAll('a[href^="#"]');
+            for (var j = 0; j < allAnchors.length; j++) {
+                allAnchors[j].addEventListener('click', function(e) {
+                    var href = this.getAttribute('href');
+                    if (href === '#') return;
+                    var target = document.querySelector(href);
+                    if (target) {
+                        e.preventDefault();
+                        var headerH = header.offsetHeight;
+                        var pos = target.getBoundingClientRect().top + window.scrollY - headerH;
+                        window.scrollTo({ top: pos, behavior: 'smooth' });
+                    }
+                });
+            }
+
+            // ── Scroll to top ──
+            var scrollTopBtn = document.getElementById('scroll-top');
+            function updateScrollTopBtn() {
+                if (window.scrollY > 600) {
+                    scrollTopBtn.classList.add('scroll-top--visible');
+                } else {
+                    scrollTopBtn.classList.remove('scroll-top--visible');
+                }
+            }
+            scrollTopBtn.addEventListener('click', function() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // ── Throttled scroll ──
+            var ticking = false;
+            window.addEventListener('scroll', function() {
+                if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                        updateHeader();
+                        updateScrollTopBtn();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            updateHeader();
+            updateScrollTopBtn();
+
+            // ── Intersection Observer: Scroll Reveal + Draw Lines + Build Bars + Counter ──
+            if ('IntersectionObserver' in window) {
+                // General reveal
+                var revealElements = document.querySelectorAll('.reveal');
+                var revealObserver = new IntersectionObserver(function(entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            entries[k].target.classList.add('reveal--visible');
+                            revealObserver.unobserve(entries[k].target);
+                        }
+                    }
+                }, { threshold: 0.15, rootMargin: '0px 0px -30px 0px' });
+                for (var l = 0; l < revealElements.length; l++) {
+                    revealObserver.observe(revealElements[l]);
+                }
+
+                // Stagger reveal
+                var staggerElements = document.querySelectorAll('.reveal-stagger');
+                var staggerObserver = new IntersectionObserver(function(entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            entries[k].target.classList.add('reveal-stagger--visible');
+                            staggerObserver.unobserve(entries[k].target);
+                        }
+                    }
+                }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+                for (var m = 0; m < staggerElements.length; m++) {
+                    staggerObserver.observe(staggerElements[m]);
+                }
+
+                // SVG draw-on-scroll
+                var drawLines = document.querySelectorAll('.draw-line');
+                var drawObserver = new IntersectionObserver(function(entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            entries[k].target.classList.add('draw-line--visible');
+                            drawObserver.unobserve(entries[k].target);
+                        }
+                    }
+                }, { threshold: 0.05, rootMargin: '0px 0px -10px 0px' });
+                for (var n = 0; n < drawLines.length; n++) {
+                    drawObserver.observe(drawLines[n]);
+                }
+
+                // Build bars
+                var buildBars = document.querySelectorAll('.build-bar__fill');
+                var barObserver = new IntersectionObserver(function(entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            entries[k].target.classList.add('build-bar__fill--visible');
+                            barObserver.unobserve(entries[k].target);
+                        }
+                    }
+                }, { threshold: 0.3 });
+                for (var p = 0; p < buildBars.length; p++) {
+                    barObserver.observe(buildBars[p]);
+                }
+
+                // Counter animation
+                var counters = document.querySelectorAll('.counter-animate');
+                var counterObserver = new IntersectionObserver(function(entries) {
+                    for (var k = 0; k < entries.length; k++) {
+                        if (entries[k].isIntersecting) {
+                            animateCounter(entries[k].target);
+                            counterObserver.unobserve(entries[k].target);
+                        }
+                    }
+                }, { threshold: 0.5 });
+                for (var q = 0; q < counters.length; q++) {
+                    counterObserver.observe(counters[q]);
+                }
+            } else {
+                // Fallback
+                var fallbackReveal = document.querySelectorAll('.reveal');
+                for (var r = 0; r < fallbackReveal.length; r++) {
+                    fallbackReveal[r].classList.add('reveal--visible');
+                }
+                var fallbackStagger = document.querySelectorAll('.reveal-stagger');
+                for (var s = 0; s < fallbackStagger.length; s++) {
+                    fallbackStagger[s].classList.add('reveal-stagger--visible');
+                }
+                var fallbackDraw = document.querySelectorAll('.draw-line');
+                for (var t = 0; t < fallbackDraw.length; t++) {
+                    fallbackDraw[t].classList.add('draw-line--visible');
+                }
+                var fallbackBars = document.querySelectorAll('.build-bar__fill');
+                for (var u = 0; u < fallbackBars.length; u++) {
+                    fallbackBars[u].classList.add('build-bar__fill--visible');
+                }
+            }
+
+            // Counter animation function
+            function animateCounter(el) {
+                var target = parseInt(el.getAttribute('data-target'), 10);
+                if (isNaN(target)) return;
+                var duration = 1800;
+                var start = 0;
+                var startTime = null;
+
+                function step(timestamp) {
+                    if (!startTime) startTime = timestamp;
+                    var progress = Math.min((timestamp - startTime) / duration, 1);
+                    // Ease out cubic
+                    var eased = 1 - Math.pow(1 - progress, 3);
+                    var current = Math.floor(eased * target);
+                    el.textContent = current;
+                    if (progress < 1) {
+                        requestAnimationFrame(step);
+                    } else {
+                        el.textContent = target;
+                    }
+                }
+                requestAnimationFrame(step);
+            }
+
+            // ── Form submission ──
+            var form = document.getElementById('contact-form');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                var nameEl = document.getElementById('name');
+                var emailEl = document.getElementById('email');
+                var phoneEl = document.getElementById('phone');
+                var messageEl = document.getElementById('message');
+                var isValid = true;
+
+                var fields = [nameEl, emailEl, phoneEl, messageEl];
+                for (var v = 0; v < fields.length; v++) {
+                    if (!fields[v].value.trim()) {
+                        fields[v].style.borderColor = '#ED8936';
+                        isValid = false;
+                    } else {
+                        fields[v].style.borderColor = '';
+                    }
+                }
+
+                if (emailEl.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEl.value)) {
+                    emailEl.style.borderColor = '#ED8936';
+                    isValid = false;
+                }
+
+                if (!isValid) return;
+
+                var submitBtn = form.querySelector('.form-submit');
+                var originalHTML = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite"><circle cx="12" cy="12" r="10" stroke-dasharray="56" stroke-dashoffset="14"/></svg> ENVIANDO...';
+                submitBtn.disabled = true;
+                submitBtn.style.opacity = '0.7';
+
+                var data = {
+                    site: 'tulpetlac',
+                    name: nameEl.value.trim(),
+                    email: emailEl.value.trim(),
+                    phone: phoneEl.value.trim(),
+                    company: '',
+                    service: document.getElementById('service') ? document.getElementById('service').value : '',
+                    message: messageEl.value.trim(),
+                    website: document.getElementById('website') ? document.getElementById('website').value : ''
+                };
+
+                (function(){
+                    var _mrcpt = 'soporte@tulpetlacsc.com.mx';
+                    var _msubj = '[Tulpetlac Servicios y Construcciones] Nuevo contacto de ' + data.name;
+                    var _mlines = ['Nombre: ' + data.name, 'Email: ' + data.email];
+                    if (data.company) _mlines.push('Empresa: ' + data.company);
+                    if (data.service) _mlines.push('Servicio: ' + data.service);
+                    _mlines.push('', 'Mensaje:', data.message);
+                    window.location.href = 'mailto:' + _mrcpt + '?subject=' + encodeURIComponent(_msubj) + '&body=' + encodeURIComponent(_mlines.join('\n'));
+                    form.reset();
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalHTML;
+                })();
+            });
+
+            // Spin animation
+            var spinStyle = document.createElement('style');
+            spinStyle.textContent = '@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }';
+            document.head.appendChild(spinStyle);
+
+        })();
+    </script>
+</body>
+</html>
